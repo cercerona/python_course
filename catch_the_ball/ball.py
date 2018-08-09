@@ -1,10 +1,10 @@
 import tkinter
 from random import choice, randint
 
-ball_initial_number = 10 #Число шариков для игры
+ball_initial_number = 20 #Число шариков для игры
 ball_minimal_radius = 15
 ball_maximal_radius = 40
-ball_available_colors = ["green", "blue", "red", "#FF00FF", "#AAAA00"]
+ball_available_colors = ["green", "blue", "red", "#FF00FF", "#FFFF00"]
 
 def click_ball(event):
     """Обработчик событий мышки на игровом холсте
@@ -13,7 +13,10 @@ def click_ball(event):
     необходимое колличество очков.
     :return: ничего
     """
-    print(event.x, event.y)
+    obj = canvas.find_closest(event.x, event.y)
+    print(canvas.coords(obj))
+
+    canvas.delete(obj)
 
 
 def random_color():
@@ -52,7 +55,7 @@ def init_main_window():
     global root, canvas #создание глобальных виджетов главного окна и холста
     root = tkinter.Tk()
     canvas = tkinter.Canvas(root, background='white', width=400, height=400)
-    canvas.bind("<Motion>", click_ball)
+    canvas.bind("<Button>", click_ball)
     canvas.pack()
 
 
