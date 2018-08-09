@@ -15,9 +15,9 @@ def init_main_window():
     global root, canvas #создание глобальных виджетов главного окна и холста
     root = tkinter.Tk()
     canvas = tkinter.Canvas(root, background='white', width=400, height=400)
-    canvas.bind("<Motion", click_ball)
+    canvas.bind("<Motion>", click_ball)
     canvas.pack()
 
-if __name__ == __m:
+if __name__ == "__main__":
     init_main_window()
     root.mainloop()
