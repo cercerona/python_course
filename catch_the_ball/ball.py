@@ -1,26 +1,48 @@
 import tkinter
+from random import choice, randint
+
+ball_initial_number = 10 #Число шариков для игры
+ball_minimal_radius = 15
+ball_maximal_radius = 40
+ball_available_colors = ["green", "blue", "red", "#FF00FF", "#AAAA00"]
 
 def click_ball(event):
     """Обработчик событий мышки на игровом холсте
     :param event: событие с координатами клика
+    По клику мышки необходимо удалять объект, над которым пришелся клик и засчитывать пользователю
+    необходимое колличество очков.
     :return: ничего
     """
     print(event.x, event.y)
+
 
 def random_color():
     """Возвращает случайное значение цвета
     :param: нет
     :return: цвет
     """
-    pass #fixme
+    return choice(ball_available_colors)
+
+
+def init_catch_ball_game():
+    """
+    Создает необходимое для игры число шариков.
+    :return:
+    """
+    for i in range(ball_initial_number):
+        create_random_ball()
 
 
 def create_random_ball():
-    """Создает круг, закрашенный случайным цветом
+    """Создает шарик, закрашенный случайным цветом
     :param ничего
     :return: ничего
     """
+    R = randint(ball_minimal_radius, ball_maximal_radius)
+    x = randint(0+R, int(canvas['width'])-1-2*R)
+    y = randint(0+R, int(canvas['height'])-1-2*R)
     canvas.create_oval(x, y, x+2*R, y+2*R, width=1, fill=random_color())
+
 
 def init_main_window():
     """Создает и инициирует виджеты окна игры
@@ -33,6 +55,8 @@ def init_main_window():
     canvas.bind("<Motion>", click_ball)
     canvas.pack()
 
+
 if __name__ == "__main__":
     init_main_window()
+    init_catch_ball_game()
     root.mainloop()
