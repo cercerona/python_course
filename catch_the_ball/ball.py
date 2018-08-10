@@ -20,7 +20,6 @@ def click_ball(event):
         canvas.delete(obj)
 
 
-
 def random_color():
     """Возвращает случайное значение цвета
     :param: нет
