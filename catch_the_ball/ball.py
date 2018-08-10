@@ -15,8 +15,10 @@ def click_ball(event):
     """
     obj = canvas.find_closest(event.x, event.y)
     print(canvas.coords(obj))
+    x1, y1, x2, y2 = canvas.coords(obj)
+    if (x1 <= event.x <= x2) and (y1 <= event.y <= y2):
+        canvas.delete(obj)
 
-    canvas.delete(obj)
 
 
 def random_color():
