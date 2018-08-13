@@ -21,6 +21,17 @@ def click_ball(event):
         #fixme: учесть в очках
         create_random_ball()
 
+def move_all_balls(event):
+    """
+    Передвигает все шарики на чуть-чуть
+    :param event:
+    :return: нет
+    """
+    for obj in canvas.find_all():
+        dx = randint(-1, 1)
+        dy = randint(-1, 1)
+        canvas.move(obj, dx, dy)
+
 
 def random_color():
     """Возвращает случайное значение цвета
@@ -59,6 +70,7 @@ def init_main_window():
     root = tkinter.Tk()
     canvas = tkinter.Canvas(root, background='white', width=400, height=400)
     canvas.bind("<Button>", click_ball)
+    canvas.bind("<Motion>", move_all_balls)
     canvas.pack()
 
 
