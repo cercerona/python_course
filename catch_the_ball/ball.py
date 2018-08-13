@@ -18,6 +18,7 @@ def click_ball(event):
     x1, y1, x2, y2 = canvas.coords(obj)
     if (x1 <= event.x <= x2) and (y1 <= event.y <= y2):
         canvas.delete(obj)
+        create_random_ball()
 
 
 def random_color():
