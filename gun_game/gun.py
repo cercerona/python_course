@@ -20,36 +20,39 @@ class Ball:
         со случайными значениями скоростей по осям X и Y
         """
         R = randint(Ball.minimal_radius, Ball.maximal_radius)
-        x = randint(0+Ball.R, canvas_width-1-2*Ball.R)
-        y = randint(0+Ball.R, canvas_width-1-2*Ball.R)
+        x = randint(0+R, canvas_width-1-2*R)
+        y = randint(0+R, canvas_width-1-2*R)
         fill_color = choice(Ball.available_colors)
         self._R = R
         self._x = x
         self._y = y
-        self._avatar = canvas.create_oval(x, y, x+2*R, y+2*R, width=1, fill_color)
+        self._avatar = canvas.create_oval(x, y, x+2*R, y+2*R, width=1, fill=fill_color)
         self._Vx = randint(Ball.minimal_Vx, Ball.maximal_Vx)
         self._Vy = randint(Ball.minimal_Vy, Ball.maximal_Vy)
 
 
 def init_game():
     """
-    Создает необходимое для игры число шариков.
-    :return:
+    Создает необходимое для игры число объектов-шариков и пушку
+    :return: ничего
     """
-
-
+    global balls# Объявляем глобальный массив, который будет содержать объекты-шарики
+    balls = [Ball() for i in range(Ball.initial_number)]
+    #FIXME надо еще создать пушку
 
 def init_main_window():
     """Создает и инициирует виджеты окна игры
     :param: нет
     :return: ничего
     """
-    global root, canvas #создание глобальных виджетов главного окна и холста
+    global root, canvas, scores_value, scores_text  #создание глобальных виджетов главного окна и холста
     root = tkinter.Tk()
+    root.title("Пушка")
+    scores_value = tkinter.IntVar()
     canvas = tkinter.Canvas(root, background='white', width=canvas_width, height=canvas_height)
-    #canvas.bind("<Button>", click_ball)
-    #canvas.bind("<Motion>", move_all_balls)
+    scores_text = tkinter.Entry(root, textvariable = scores_value)
     canvas.pack()
+    scores_text.pack()
 
 
 if __name__ == "__main__":
