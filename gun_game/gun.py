@@ -59,15 +59,28 @@ class Gun:# Класс, определяющий объект-пушку
         self._ly = -30# направление пушки по ординате
         self._avatar = canvas.create_line(self._x, self._y, self._x+self._lx, self._y+self._ly)
 
+    def shoot(self):
+        """Метод, осуществляющий выстрел.
+        :return Возвращает объект-пулю"""
+        shell = Ball()# Создаем объект-пулю
+        shell._x = self._x + self._lx
+        shell._y = self._y + self._ly
+        shell._Vx = self._lx/10
+        shell._Vy = self._ly/10
+        shell._R = 5
+        shell.fly()
+        return shell
+
 
 def init_game():
     """
     Создает необходимое для игры число объектов-шариков и пушку
     :return: ничего
     """
-    global balls, gun# Объявляем глобальный массив, который будет содержать объекты-шарики, пушку
+    global balls, gun, shells# Объявляем глобальный массив, который будет содержать объекты-шарики, пушку
     balls = [Ball() for i in range(Ball.initial_number)]
     gun = Gun()# создаем объект-пушку
+    shells = []# массив, содержащий пули
 
 def init_main_window():
     """Создает и инициирует виджеты окна игры
@@ -82,13 +95,24 @@ def init_main_window():
     scores_text = tkinter.Entry(root, textvariable = scores_value)
     canvas.grid(row = 1, column = 0, columnspan = 3)# упаковка холста
     scores_text.grid(row = 0, column = 2)# упаковка текстового поля
+    canvas.bind('<Button-1>', click_event_handler)
 
 def timer_event():
     """Запускает таймер каждые timer_delay миллисекунд, определенных в глобальной переменной timer_delay.
-    Двигает шарик, вызывая метод fly()"""
+    Двигает шарик и пулю, вызывая метод fly()"""
     for ball in balls:
         ball.fly()
+    for shell in shells:
+        shell.fly()
+
     canvas.after(timer_delay, timer_event)
+
+def click_event_handler(event):
+    """
+    Обрабатывает событие клика левой кнопкой мышки на холсте (выстрел)
+    :return объект-пулю"""
+    global shells
+    shells.append(gun.shoot())
 
 
 if __name__ == "__main__":
