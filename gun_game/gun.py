@@ -79,10 +79,10 @@ def init_game():
     Создает необходимое для игры число объектов-шариков и пушку
     :return: ничего
     """
-    global balls, gun, shells# Объявляем глобальный массив, который будет содержать объекты-шарики, пушку
+    global balls, gun, shells_on_fly# Объявляем глобальный массив, который будет содержать объекты-шарики, пушку
     balls = [Ball() for i in range(Ball.initial_number)]
     gun = Gun()# создаем объект-пушку
-    shells = []# массив, содержащий пули
+    shells_on_fly = []# массив, содержащий пули
 
 def init_main_window():
     """Создает и инициирует виджеты окна игры
@@ -104,7 +104,7 @@ def timer_event():
     Двигает шарик и пулю, вызывая метод fly()"""
     for ball in balls:
         ball.fly()
-    for shell in shells:
+    for shell in shells_on_fly:
         shell.fly()
 
     canvas.after(timer_delay, timer_event)
@@ -113,8 +113,8 @@ def click_event_handler(event):
     """
     Обрабатывает событие клика левой кнопкой мышки на холсте (выстрел)
     :return объект-пулю"""
-    global shells
-    shells.append(gun.shoot())
+    global shells_on_fly
+    shells_on_fly.append(gun.shoot())
 
 
 if __name__ == "__main__":
