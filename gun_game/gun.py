@@ -60,8 +60,10 @@ class Gun:# Класс, определяющий объект-пушку
         self._avatar = canvas.create_line(self._x, self._y, self._x+self._lx, self._y+self._ly)
 
     def shoot(self):
-        """Метод, осуществляющий выстрел.
-        :return Возвращает объект-пулю"""
+        """
+        Метод, осуществляющий выстрел.
+        :return Возвращает объект-пулю
+        """
         shell = Ball()# Создаем объект-пулю
         shell._x = self._x + self._lx
         shell._y = self._y + self._ly
