@@ -5,7 +5,7 @@ canvas_width = 400
 canvas_height = 300
 timer_delay = 120# определяет задержку в вызове таймера
 
-class Ball:
+class Ball:# Класс, определяющий объект-шарик
     initial_number = 20# число шариков для игры
     minimal_radius = 15
     maximal_radius = 40
@@ -35,7 +35,6 @@ class Ball:
 
         canvas.coords(self._avatar, self._x, self._y, self._x + 2*self._R, self._y + 2*self._R)
 
-
     def __init__(self):
         """
         Создаем объект-шар в случайной позиции на холсте, закрашенный случайным цветом и
@@ -52,15 +51,23 @@ class Ball:
         self._Vx = randint(Ball.minimal_Vx, Ball.maximal_Vx)
         self._Vy = randint(Ball.minimal_Vy, Ball.maximal_Vy)
 
+class Gun:# Класс, определяющий объект-пушку
+    def __init__(self):
+        self._x = 0# абсцисса начала пушки
+        self._y = canvas_height-1# ордината начала пушки
+        self._lx = 30# направление пушки по абсциссе
+        self._ly = -30# направление пушки по ординате
+        self._avatar = canvas.create_line(self._x, self._y, self._x+self._lx, self._y+self._ly)
+
 
 def init_game():
     """
     Создает необходимое для игры число объектов-шариков и пушку
     :return: ничего
     """
-    global balls# Объявляем глобальный массив, который будет содержать объекты-шарики
+    global balls, gun# Объявляем глобальный массив, который будет содержать объекты-шарики, пушку
     balls = [Ball() for i in range(Ball.initial_number)]
-    #FIXME надо еще создать пушку
+    gun = Gun()# создаем объект-пушку
 
 def init_main_window():
     """Создает и инициирует виджеты окна игры
@@ -73,8 +80,8 @@ def init_main_window():
     scores_value = tkinter.IntVar()
     canvas = tkinter.Canvas(root, background='white', width=canvas_width, height=canvas_height)
     scores_text = tkinter.Entry(root, textvariable = scores_value)
-    canvas.grid(row = 1, column = 0, columnspan = 3)
-    scores_text.grid(row = 0, column = 2)
+    canvas.grid(row = 1, column = 0, columnspan = 3)# упаковка холста
+    scores_text.grid(row = 0, column = 2)# упаковка текстового поля
 
 def timer_event():
     """Запускает таймер каждые timer_delay миллисекунд, определенных в глобальной переменной timer_delay.
