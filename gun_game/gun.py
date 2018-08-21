@@ -5,6 +5,24 @@ canvas_width = 400
 canvas_height = 300
 timer_delay = 120# определяет задержку в вызове таймера
 
+class MovingUnit:
+    """Абстрактный класс, определяющий движущийся объект (шарик-мишень, шарик-пулю)
+    Содержит атрибуты _x, _y, _Vx, _Vy, _R, _avatar
+    и абстрактный (запрещенный к ввызову извне) метод fly()
+    Наследниками являются классы шарика-мишени (Ball) и шарика-пули (Shell)"""
+
+    def __init__(self, x, y, Vx, Vy, avatar):
+        self._x  = x
+        self._y = y
+        self._Vx = Vx
+        self._Vy = Vy
+        self._R = R
+        self._avatar = avatar
+
+    def fly(self):
+        """Абстрактный метод fly()"""
+        raise RuntimeError
+
 class Ball:# Класс, определяющий объект-шарик
     initial_number = 20# число шариков для игры
     minimal_radius = 15
