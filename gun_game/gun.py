@@ -151,6 +151,25 @@ def init_main_window():
     scores_text.grid(row = 0, column = 2)# упаковка текстового поля
     canvas.bind('<Button-1>', click_event_handler)
 
+def hitting(unit1, unit2):
+    """
+    Определяет пересекаются ли два графических объекта: объект пуля и объект шарик-мишень, т.е. есть ли попадание
+    :param unit1: Объект пуля
+    :param unit2: Объект шарик-мишень
+    :return: True, если объекты пересекаются и False, если нет
+    """
+    if((unit1._x >= unit2._x) and (unit1._x <= (unit2._x+2*unit2._R)))\
+            and ((unit1._y >= unit2._y) and (unit1._y <= (unit2._y+2*unit2._R)))\
+            or ((unit1._x+2*unit1._R >= unit2._x) and ((unit1._x+2*unit1._R) <= (unit2._x+2*unit2._R)))\
+            and (((unit1._y+2*unit1._R) >= unit2._y) and ((unit1._y+2*unit1._R) <= (unit2._y+2*unit2._R))):
+        print("Пуля (x, y, x+2*R, y+2*R): ", (unit1._x, unit1._y, unit1._x+2*unit1._R, unit1._y+2*unit1._R))
+        print("Мишень (x, y, x+2*R, y+2*R): ", (unit2._x, unit2._y, unit2._x+2*unit2._R, unit2._y+2*unit2._R))
+        print("Попадание!")
+        return True
+    else:
+        return False
+
+
 def timer_event():
     """Запускает таймер каждые timer_delay миллисекунд, определенных в глобальной переменной timer_delay.
     Двигает шарик и пулю, вызывая метод fly()"""
@@ -158,6 +177,10 @@ def timer_event():
         ball.fly()
     for shell in shells_on_fly:
         shell.fly()
+
+    for ball in balls:
+        for shell in shells_on_fly:
+            hitting(shell, ball)
 
     canvas.after(timer_delay, timer_event)
 
