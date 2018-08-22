@@ -86,6 +86,8 @@ class Ball(MovingUnit):
         fill_color = choice(Ball.available_colors)
         avatar = canvas.create_oval(x, y, x+2*R, y+2*R, width=1, fill=fill_color,  outline=fill_color)
 
+        self._toDelete = False
+
         super().__init__(x, y, Vx, Vy, R, avatar)
 
     def fly(self):
@@ -108,6 +110,13 @@ class Ball(MovingUnit):
 
         canvas.coords(self._avatar, self._x, self._y, self._x + 2*self._R, self._y + 2*self._R) # смещение координат
 
+    def Deleted(self, toDelete):
+        """
+        Устанавливает флаг удаления в значение параметра toDelete
+        :param toDelete: значение флага удаления объекта
+        :return: ничего
+        """
+        self._toDelete = toDelete
 
 class Gun:# Класс, определяющий объект-пушку
     def __init__(self):
@@ -180,7 +189,7 @@ def timer_event():
 
     for ball in balls:
         for shell in shells_on_fly:
-            hitting(shell, ball)
+            ball.Deleted(hitting(shell, ball))
 
     canvas.after(timer_delay, timer_event)
 
