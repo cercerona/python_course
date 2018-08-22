@@ -20,10 +20,27 @@ class MovingUnit:
         self._Vy = Vy
         self._R = R
         self._avatar = avatar
+        self._deleted = False
 
     def fly(self):
         """Абстрактный метод fly()"""
         raise RuntimeError
+
+    def delete(self):
+        """
+        Удаляет изображение объекта с холста
+        :return: Ничего
+        """
+        if not self._deleted:
+            canvas.delete(self._avatar)
+            self._deleted = True
+
+
+    def deleted(self):
+        """
+        :return: True, если объеект уже удален
+        """
+        return self._deleted
 
 
 class Shell(MovingUnit):
@@ -86,7 +103,6 @@ class Ball(MovingUnit):
         fill_color = choice(Ball.available_colors)
         avatar = canvas.create_oval(x, y, x+2*R, y+2*R, width=1, fill=fill_color,  outline=fill_color)
 
-        self._toDelete = False
 
         super().__init__(x, y, Vx, Vy, R, avatar)
 
@@ -110,13 +126,6 @@ class Ball(MovingUnit):
 
         canvas.coords(self._avatar, self._x, self._y, self._x + 2*self._R, self._y + 2*self._R) # смещение координат
 
-    def Deleted(self, toDelete):
-        """
-        Устанавливает флаг удаления в значение параметра toDelete
-        :param toDelete: значение флага удаления объекта
-        :return: ничего
-        """
-        self._toDelete = toDelete
 
 class Gun:# Класс, определяющий объект-пушку
     def __init__(self):
@@ -171,12 +180,26 @@ def hitting(unit1, unit2):
             and ((unit1._y >= unit2._y) and (unit1._y <= (unit2._y+2*unit2._R)))\
             or ((unit1._x+2*unit1._R >= unit2._x) and ((unit1._x+2*unit1._R) <= (unit2._x+2*unit2._R)))\
             and (((unit1._y+2*unit1._R) >= unit2._y) and ((unit1._y+2*unit1._R) <= (unit2._y+2*unit2._R))):
-        print("Пуля (x, y, x+2*R, y+2*R): ", (unit1._x, unit1._y, unit1._x+2*unit1._R, unit1._y+2*unit1._R))
-        print("Мишень (x, y, x+2*R, y+2*R): ", (unit2._x, unit2._y, unit2._x+2*unit2._R, unit2._y+2*unit2._R))
-        print("Попадание!")
         return True
     else:
         return False
+
+
+def remove_deleted_units_from_list(units):
+    """
+    Удаляет элементы списка, изображения которых удалены с холста (у которых выставлен флаг _deleted
+    :param units: Список, из которого необходимо удалить элементы
+    :return: ничего
+    """
+    delta = 0 # Смещение в списке
+    for i in range(len(units)):
+        if units[i].deleted():
+            delta +=1
+        else:
+            units[i-delta] = units[i]
+
+    if delta != 0:
+        units[:] = units[:-delta]
 
 
 def timer_event():
@@ -189,7 +212,12 @@ def timer_event():
 
     for ball in balls:
         for shell in shells_on_fly:
-            ball.Deleted(hitting(shell, ball))
+            if hitting(shell, ball):
+                ball.delete()# Удаляем изображение мишени
+                shell.delete()# Удаляем изображение пули
+
+    remove_deleted_units_from_list(shells_on_fly)
+    remove_deleted_units_from_list(balls)
 
     canvas.after(timer_delay, timer_event)
 
