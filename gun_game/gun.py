@@ -74,7 +74,12 @@ class Shell(MovingUnit):
 
         canvas.coords(self._avatar, self._x, self._y, self._x + 2*self._R, self._y + 2*self._R) # смещение координат
 
-        #fixme: пока не отслеживается вылет за пределы поля, когда снаряд надо униичтожить
+        #отследим вылет за пределы поля, когда снаряд надо униичтожить и уничтожжим его
+        if self._x + 2*self._R >= canvas_width:
+            self.delete()
+        if self._y <= 0:
+            self.delete()
+
 
 class Ball(MovingUnit):
     """
