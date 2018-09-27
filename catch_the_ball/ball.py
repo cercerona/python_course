@@ -59,8 +59,8 @@ def create_random_ball():
     :return: ничего
     """
     R = randint(ball_minimal_radius, ball_maximal_radius)
-    x = randint(0+R, int(canvas['width'])-1-2*R)
-    y = randint(0+R, int(canvas['height'])-1-2*R)
+    x = randint(0+R, canvas_width-1-2*R)
+    y = randint(0+R, canvas_height-1-2*R)
     canvas.create_oval(x, y, x+2*R, y+2*R, width=1, fill=random_color())
 
 
