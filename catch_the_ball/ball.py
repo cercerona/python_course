@@ -1,6 +1,9 @@
 import tkinter
 from random import choice, randint
 
+canvas_width = 400
+canvas_height = 300
+canvas_color = "white"
 ball_initial_number = 20 #Число шариков для игры
 ball_minimal_radius = 15
 ball_maximal_radius = 40
@@ -19,7 +22,7 @@ def click_ball(event):
     if (x1 <= event.x <= x2) and (y1 <= event.y <= y2):
         canvas.delete(obj)
         #fixme: учесть в очках
-        create_random_ball()
+        #create_random_ball()
 
 def move_all_balls(event):
     """
@@ -68,7 +71,8 @@ def init_main_window():
     """
     global root, canvas #создание глобальных виджетов главного окна и холста
     root = tkinter.Tk()
-    canvas = tkinter.Canvas(root, background='white', width=400, height=400)
+    root.title("Поймай шарик")
+    canvas = tkinter.Canvas(root, background = canvas_color, width=canvas_width, height=canvas_height)
     canvas.bind("<Button>", click_ball)
     canvas.bind("<Motion>", move_all_balls)
     canvas.pack()
