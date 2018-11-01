@@ -4,6 +4,7 @@
     <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
       <option name="ignoredErrors">
         <list>
+<<<<<<< HEAD
           <option value="W29" />
           <option value="E501" />
           <option value="W29" />
@@ -30,6 +31,9 @@
           <option value="E501" />
           <option value="W29" />
           <option value="E501" />
+=======
+          <option value="E302" />
+>>>>>>> origin/master
         </list>
       </option>
     </inspection_tool>
