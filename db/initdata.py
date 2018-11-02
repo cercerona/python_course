@@ -12,6 +12,6 @@ db['elen'] = elen
 db['ivan'] = ivan
 db['kate'] = kate
 
-if __name__ == "__main__":
+if __name__ == "__main__": #  Проверка запущен ли модуль отдельно
     for key in db:
         print(key, '=>\n', db[key])
