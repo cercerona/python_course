@@ -9,7 +9,8 @@ def init_main_window():
     global root, canvas  # глобальные виджеты гл.окна и холста
     root = tkinter.Tk()  # создали главное окно
     root.title("Поймай шарик")  # задали заголовок главного окна
-    canvas = tkinter.Canvas(root, background=canvas_color, width=canvas_width, height=canvas_height)
+    canvas = tkinter.Canvas(root, background=canvas_color,\
+                            width=canvas_width, height=canvas_height)
     canvas.pack()
     pass  # fixme
 
