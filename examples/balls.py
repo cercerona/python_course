@@ -4,6 +4,7 @@ canvas_color = "white"
 canvas_width = 400
 canvas_height = 300
 
+
 def init_main_window():
     """Создает и инициализирует виджеты главного окна"""
     global root, canvas  # глобальные виджеты гл.окна и холста
@@ -14,6 +15,7 @@ def init_main_window():
     canvas.pack()
     pass  # fixme
 
+
 if __name__ == "__main__":
-    init_main_window() # Инициализация главного окна
+    init_main_window()  # Инициализация главного окна
     root.mainloop()
