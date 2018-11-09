@@ -2,6 +2,7 @@ from tkinter import *
 
 main_window = Tk()  # Создадим главное окно программы
 main_window.title('Программа визуализации отчетов')  # Зададим заголовок главного окна программы
+main_window.geometry('600x300')
 
 main_frame =  Frame(main_window)  # Создадим главный фрейм окна отчета
 main_frame.config(bg='black')
@@ -13,7 +14,14 @@ top_frame.pack(side=TOP, fill=X)  # Привяжем фрейм к верхне�
 open_file_button = Button(top_frame, text = 'Open report')
 open_file_button.pack(side=RIGHT)  # Поместим справа кнопку открытия файла с отчетом
 open_file_label = Label(top_frame, text = 'Report filename:')
-open_file_label.pack(side=LEFT, expand=YES, fill=X)    # Поместим слева кнопку открытия файла с отчетом
+open_file_label.pack(side=LEFT, expand=YES, fill=X)    # Поместим слева от кнопки надпись
+
+bottom_frame = Frame(main_frame)  # Создадим фрейм для кнопки сохранения отчета в файле xml
+bottom_frame.config(bg='grey')
+bottom_frame.pack(side=BOTTOM, fill=X)  # Привяжем фрейм к верхней границе и будем растягивать по стороне X
+save_report_button = Button(bottom_frame, text = 'Save report as XML')
+save_report_button.pack(side=RIGHT)  # Поместим справа кнопку сохранения отчета
+
 
 table_frame = Frame(main_frame)  # Создадим фрейм для размещения таблицы с данными
 table_frame.config(bg='grey')
