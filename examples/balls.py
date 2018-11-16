@@ -13,7 +13,8 @@ def init_main_window():
     canvas = tkinter.Canvas(root, background=canvas_color,\
                             width=canvas_width, height=canvas_height)
     canvas.pack()
-    pass  # fixme
+    canvas.bind('<Button>', click_ball)
+    canvas.bind('<Motion>', move_all_balls)
 
 
 if __name__ == "__main__":
