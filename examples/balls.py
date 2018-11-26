@@ -4,6 +4,13 @@ canvas_color = "white"
 canvas_width = 400
 canvas_height = 300
 
+def click_ball(event):
+    """Обработчик нажатия левой кнопки мышки"""
+    print('x = ' + str(event.x) + ', ' + 'y = ' + str(event.y))
+
+def move_all_balls(event):
+    """Сдвигает шарики"""
+    pass  # fixme
 
 def init_main_window():
     """Создает и инициализирует виджеты главного окна"""
