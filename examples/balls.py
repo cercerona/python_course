@@ -41,7 +41,9 @@ def init_main_window():
     canvas.bind('<Motion>', move_all_balls)
 
 def init_catch_ball_game():
-    pass  #fixme
+    """Создает необходимое число шариков"""
+    for i in range(ball_initial_number):
+        create_random_ball()
 
 if __name__ == "__main__":
     init_main_window()  # Инициализация главного окна
