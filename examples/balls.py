@@ -23,7 +23,12 @@ def create_random_ball():
 
 def click_ball(event):
     """Обработчик нажатия левой кнопки мышки"""
-    print('x = ' + str(event.x) + ', ' + 'y = ' + str(event.y))
+    #print('x = ' + str(event.x) + ', ' + 'y = ' + str(event.y))
+    obj = canvas.find_closest(event.x, event.y)
+    print(canvas.coords(obj))
+    x1, y1, x2, y2 = canvas.coords(obj)
+    if( x1 <= event.x <= x2) and (y1 <= event.y <= y2):
+        canvas.delete(obj)
 
 def move_all_balls(event):
     """Сдвигает шарики"""
