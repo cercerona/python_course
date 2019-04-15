@@ -19,10 +19,17 @@ while a < b:
     print(a, end = ' ')
     a = a + 1
 '''
-
+'''
 # Пример использования инструкции continue
 x = 10
 while x != 0:
     x = x - 1
     if x % 2 != 0: continue  # Нечетное? пропустить вывод
     print(x, end = ' ')
+'''
+
+# Пример использования инструкции break
+while True:
+    name = input('Введите Ваше имя: ')
+    if name == 'stop': break
+    print('Привет, ', name, '!' )
