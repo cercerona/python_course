@@ -27,9 +27,20 @@ while x != 0:
     if x % 2 != 0: continue  # Нечетное? пропустить вывод
     print(x, end = ' ')
 '''
-
+'''
 # Пример использования инструкции break
 while True:
     name = input('Введите Ваше имя: ')
     if name == 'stop': break
     print('Привет, ', name, '!' )
+'''
+
+# Пример на конструкцию else в цикле While
+w = input('введите слово: ')
+w = w.lower()  # переведем все буквы в нижний регистр
+while w != '':
+    if w[0] == 'я': break
+    print(w[0], end = ' ')
+    w = w[1:]
+else:
+    print('\nБуквы я нет в слове')
